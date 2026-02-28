@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+// Function to create unique elements array
+int uniqueElements(int arr[], int n, int result[]) {
+    int newSize = 0;
+
+    for (int i = 0; i < n; i++) {
+        int isDuplicate = 0;
+
+        // Check if arr[i] already exists in result[]
+        for (int j = 0; j < newSize; j++) {
+            if (arr[i] == result[j]) {
+                isDuplicate = 1;
+                break;
+            }
+        }
+
+        // If not duplicate, add to result
+        if (!isDuplicate) {
+            result[newSize++] = arr[i];
+        }
+    }
+
+    return newSize;
+}
+
+int main() {
+    int arr[] = {3, 7, 3, 5, 2, 5, 9, 2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int result[n];  // Maximum possible size
+    int newSize = uniqueElements(arr, n, result);
+
+    printf("Unique elements:\n");
+    for (int i = 0; i < newSize; i++) {
+        printf("%d ", result[i]);
+    }
+
+    return 0;
+}
