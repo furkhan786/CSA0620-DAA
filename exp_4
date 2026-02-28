@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+long long sumCounts(int* nums, int numsSize) {
+    long long total = 0;
+
+    for (int i = 0; i < numsSize; i++) {
+        int distinct = 0;
+
+        for (int j = i; j < numsSize; j++) {
+            int isNew = 1;
+
+            for (int k = i; k < j; k++) {
+                if (nums[k] == nums[j]) {
+                    isNew = 0;
+                    break;
+                }
+            }
+
+            if (isNew) {
+                distinct++;
+            }
+
+            total += (long long)distinct * distinct;
+        }
+    }
+
+    return total;
+}
+
+int main() {
+    int nums1[] = {1, 2, 1};
+    printf("%lld\n", sumCounts(nums1, 3));  // 15
+
+    int nums2[] = {1, 1};
+    printf("%lld\n", sumCounts(nums2, 2));  // 3
+
+    return 0;
+}
