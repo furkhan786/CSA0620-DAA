@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+// Function to swap two numbers
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Partition function for Quick Sort
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
+
+// Quick Sort function
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+// Function to sort and return maximum element
+int findMaxAfterSort(int arr[], int n) {
+    if (n == 0) {
+        printf("List is empty.\n");
+        return -1; // Indicates empty
+    }
+
+    quickSort(arr, 0, n - 1);
+    return arr[n - 1];  // Last element after sorting
+}
+
+int main() {
+    // Test Case 1: Empty list
+    int arr1[] = {};
+    int n1 = 0;
+    findMaxAfterSort(arr1, n1);
+
+    // Test Case 2: Single element
+    int arr2[] = {5};
+    int n2 = 1;
+    printf("%d\n", findMaxAfterSort(arr2, n2));  // 5
+
+    // Test Case 3: All elements same
+    int arr3[] = {3, 3, 3, 3, 3};
+    int n3 = 5;
+    printf("%d\n", findMaxAfterSort(arr3, n3));  // 3
+
+    return 0;
+}
