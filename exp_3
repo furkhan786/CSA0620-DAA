@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+long long sumCounts(int* nums, int numsSize) {
+    long long total = 0;
+
+    for (int i = 0; i < numsSize; i++) {
+        int distinct = 0;
+
+        // We use a simple frequency array.
+        // If constraints are large, use hashing instead.
+        int freq[100001] = {0};  // Adjust size if needed
+
+        for (int j = i; j < numsSize; j++) {
+            if (freq[nums[j]] == 0) {
+                distinct++;
+            }
+            freq[nums[j]]++;
+
+            total += (long long)distinct * distinct;
+        }
+    }
+
+    return total;
+}
+
+int main() {
+    int nums1[] = {1, 2, 1};
+    printf("%lld\n", sumCounts(nums1, 3));  // Output: 15
+
+    int nums2[] = {1, 1};
+    printf("%lld\n", sumCounts(nums2, 2));  // Output: 3
+
+    return 0;
+}
